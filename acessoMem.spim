@@ -1,0 +1,18 @@
+
+    li $v0, 5 # A[i] = A[j] + N
+    syscall
+    move $t0, $v0 # t0 = i
+    li $ v0, 5
+    syscall
+    move $t1, $v0 # t1 = j
+    li $v0, 5
+    syscall
+    move $t2, $v0 # t2 = N
+    sll $t0, $t0, 2 # t0 = i * 4
+    sll $t1, $t1, 2 # t1 = j * 4
+    lw $t3, $t0($s0) # t3 = A[i]
+    lw $t4, $t1($s0) # t4 = A[j]
+    add $t3, $t4, $t2 # A[i] = A[j] + N
+    
+    #li $v0, 10
+    #syscall

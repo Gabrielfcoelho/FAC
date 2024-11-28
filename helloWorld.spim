@@ -1,0 +1,9 @@
+.data
+    ola: .asciiz "Ola Mundo\n"
+.text
+main:
+    li $v0, 4 #syscall 4: imprimir string
+    la $a0, ola # carrega em $a0 o enedereco de ola
+    syscall
+    li $vo,10 # encerra o programa
+    syscall
