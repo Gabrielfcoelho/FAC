@@ -1,0 +1,41 @@
+.data
+.text
+main:
+    li $v0, 5
+    syscall
+    move $s0, $v0 # s0 = n
+    add $s1, $s0, $zero # s1 = n
+    
+
+loop:
+    beq $s0, $zero, fim # s0 == 0 => fim
+
+    bne $s0, $s1, continue # s0 != s1 => continue
+    li $v0, 5
+    syscall
+    move $s2, $v0 # na primeira iteração armazena um número
+
+
+continue:
+    li $v0, 5
+    syscall
+    move $t3, $v0
+
+    slt $t0, $s2, $t3
+    bne $t0, $zero, maior
+
+    addi $s0, $s0, -1
+    j loop
+
+maior:
+    add $s2, $t3, $zero
+    addi $s0, $s0, -1
+    j loop
+
+
+fim:
+    li $v0, 1
+    move $a0, $s2
+    syscall
+    li $v0, 10
+    syscall
