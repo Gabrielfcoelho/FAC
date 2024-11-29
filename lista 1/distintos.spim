@@ -1,0 +1,35 @@
+elemDistintos:
+    move $t0, $a0 # t0 = end base
+    move $t1, $a1 # t1 = tamanho do vetor
+    add $t9, $zero, $zero # t9 = contador do loop
+    add $t8, $zero, $zero # t8 = num distintos
+
+loop:
+    slt $t2, $t9, $t1 # se t9<t1, t2 = 1
+    beq $t2, $zero, return # se t2 = 0, return
+
+    bne $t9, $zero, continue # se t9 != 0, continue
+    lw $t3, 0($t0) # carrega o primeiro elemnto
+    addi $t8, $t8, 1 # 1 elem distinto
+    addi $t9, $t9, 1 # 1 iteracao
+    j loop # prooxima iteracao
+
+continue:
+    sll $t4, $t9, 2 # multiplica o numero da iteracao por 4
+    add $t5, $t0, $t4 # adiciona end + 4 * i
+    lw $t4, 0($t5) # carrega em t4 o valor
+
+    bne $t3, $t4, conta # $t3 != $t4, conta +1
+
+    addi $t9, $t9, 1
+    j loop
+
+conta:
+    addi $t8, $t8, 1
+    move $t3, $t4
+    addi $t9, $t9, 1
+    j loop
+
+return:
+    move $v0, $t8
+    jr $ra
